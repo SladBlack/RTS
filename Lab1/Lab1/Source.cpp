@@ -3,21 +3,21 @@
 
 using namespace std;
 
-int *createArray(int size){
+int* createArray(int size) {
 	return new int[size];
 }
 
-void fillArray(int *array, int size){
+void fillArray(int* array, int size) {
 	for (int i = 0; i < size; i++)
 		cin >> array[i];
 }
 
-void printArray(int *array, int size){
+void printArray(int* array, int size) {
 	for (int i = 0; i < size; i++)
 		cout << array[i] << endl;
 }
 
-auto findMinMax(int *array, int size) {
+auto findMinMax(int* array, int size) {
 	struct result { int max; int min; };
 	int min = array[0]; int max = array[0];
 	for (int i = 1; i < size; i++) {
@@ -53,10 +53,10 @@ double findMean(int* array, int size) {
 
 struct Data {
 	int size;
-	int *array;
+	int* array;
 };
 
-DWORD WINAPI Worker(LPVOID threadData){
+DWORD WINAPI Worker(LPVOID threadData) {
 	struct Data* tData = (struct Data*)threadData;
 	double mean = findMean(tData->array, tData->size);
 	cout << "Mean: " << mean << endl;
