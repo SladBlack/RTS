@@ -1,3 +1,4 @@
+// Tahtilov Alexander PRI-O-19/1 Variant 16
 #include <windows.h>
 #include <iostream>
 
@@ -84,14 +85,14 @@ DWORD WINAPI Worker(LPVOID threadData) {
 }
 
 DWORD WINAPI Main(LPVOID threadData) {
-	// 1. Создание массива целых чисел
+	// 1. Create array of integer
 	int size;
 	cout << "Enter size of array: "; cin >> size;
 	int* array = createArray(size);
 	cout << "Enter elements of array: ";
 	fillArray(array, size);
 
-	// 2. Создание потока worker
+	// 2.Create worker thread
 	HANDLE hThread;
 	DWORD IDThread;
 
@@ -102,18 +103,17 @@ DWORD WINAPI Main(LPVOID threadData) {
 	if (hThread == NULL)
 		return GetLastError();
 
-	// 3. Поиск минимального и максимального элементов
+	// 3. Find min and max elements of array
 	auto result = findMinMax(array, size);
 	cout << "Min: " << result.min << " | " << "Max: " << result.max << endl;
 
-	// 4. Ждем пока поток Worker закончит работу
+	// 4. Waiting for worker finish
 	WaitForSingleObject(hThread, INFINITE);
 	DWORD mean;
 	GetExitCodeThread(hThread, &mean);
 	CloseHandle(hThread);
 
-	// 5. Подсчитываем количество  элементов в массиве, значение
-	// которых больше среднего значения элементов массива
+	// 5. Count elements of array, value which greater mean
 	int counter = findGreater(array, size, mean);
 	cout << "Count of elements greater than mean: " << counter << endl;
 
