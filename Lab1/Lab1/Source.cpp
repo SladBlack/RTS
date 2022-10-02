@@ -51,6 +51,14 @@ double findMean(int* array, int size) {
 	return mean;
 }
 
+double findFactorial(int num) {
+	double factorial = 1.0;
+	for (int i = 1; i <= num; ++i)
+		factorial *= i;
+
+	return factorial;
+}
+
 struct Data {
 	int size;
 	int* array;
@@ -58,8 +66,20 @@ struct Data {
 
 DWORD WINAPI Worker(LPVOID threadData) {
 	struct Data* tData = (struct Data*)threadData;
-	double mean = findMean(tData->array, tData->size);
+	int* array = tData->array;
+	int size = tData->size;
+
+	// Find mean
+	double mean = findMean(array, size);
 	cout << "Mean: " << mean << endl;
+
+	// Print factorial for each element of array
+	double factorial;
+	for (int i = 0; i < size; i++) {
+		factorial = findFactorial(array[i]);
+		cout << "Element's factorial of " << array[i] << " = " << factorial << endl;
+	}
+
 	return mean;
 }
 
